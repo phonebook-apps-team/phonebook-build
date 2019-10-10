@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 
 class AddPhonebook extends Component {
     constructor(props) {
-        let id = Math.random()
         super(props)
         this.state = {
-            userId: `${id}`,
             name: '',
             phone: '',
             added: false

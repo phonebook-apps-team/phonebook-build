@@ -3,9 +3,9 @@ import React from 'react';
 
 export default class ItemList extends React.Component {
     
-    componentDidMount(){
-        this.props.LoadItem();
-      }
+    // componentDidMount(){
+    //     this.props.LoadItem();
+    //   }
     
       
     render() {

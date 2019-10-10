@@ -1,7 +1,7 @@
-const stores = (state = [], action) => {
+const store = (state = [], action) => {
     switch (action.type) {
-      case 'LOAD_STORE_SUCCESS':
-      return action.stores.map((item)=>{
+      case 'LOAD_ITEM_SUCCESS':
+      return action.store.map((item)=>{
         item.sent = true;
         return item
       })
@@ -44,4 +44,4 @@ const stores = (state = [], action) => {
     }
   }
   
-  export default stores
+  export default store
