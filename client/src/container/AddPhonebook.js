@@ -31,11 +31,13 @@ class AddPhonebook extends Component {
         this.state({phone: e.target.value})
     }
 
-    handleSubmit(){
+    handleSubmit(e){
+        e.preventDefault()
+        if(this.state.userId && this.state.name && this.state.phone){
+            
+        }
 
     }
-
-
 
     render() {
         if (this.state.added) {
