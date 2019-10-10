@@ -1,7 +1,17 @@
 import React from 'react';
-import ItemList from './ItemList'
+import ItemList from '../container/ItemList'
 
 class ListPhonebook extends React.Component {
+    state = {
+        _id: '',
+        idUser:'',
+        name: '',
+        phone: '',
+        book: []
+
+    }
+
+
     render() {
         const dataItem = this.state.book.map((params, index) => 
         <ItemList 
