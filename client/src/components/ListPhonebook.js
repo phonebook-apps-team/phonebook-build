@@ -3,7 +3,7 @@ import React from 'react';
 class ListPhonebook extends React.Component {
     render() {
         return (
-            <table class="table table-striped mt-4">
+            <table className="table table-striped mt-4">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
