@@ -1,7 +1,13 @@
 import React from 'react';
+// import { connect } from 'react-redux'
 
 export default class ItemList extends React.Component {
-
+    
+    componentDidMount(){
+        this.props.LoadItem();
+      }
+    
+      
     render() {
         return (
                 <tr>
@@ -16,3 +22,16 @@ export default class ItemList extends React.Component {
         )
     }
 }
+
+// const mapStateToProps = (state) => ({
+//     comments: state.comments
+//   })
+
+//   const mapDispatchToProps = (dispatch) => ({
+//     LoadItem: () => dispatch(LoadItem())
+//   })
+
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(ItemList)
