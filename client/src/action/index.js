@@ -11,7 +11,10 @@ const request =  axios.create({
 export const loadItemDataSuccess = (store) => ({
     type: 'LOAD_ITEM_SUCCESS',
     store
+
   })
+  console.log('data item success >',store);
+  
   
   export const loadItemDataFailure = () => ({
     type: 'LOAD_ITEM_FAILURE'
