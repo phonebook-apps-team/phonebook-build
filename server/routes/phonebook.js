@@ -5,6 +5,7 @@ var PhoneBook = require('../models/users')
 
 router.get('/', function (req, res, next) {
   let response = {
+    idUser: '',
     name: '',
     phone: ''
   }
@@ -19,26 +20,34 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', (req, res, next) => {
+
+  console.log('req Body > ', req.body);
+  
   PhoneBook.create({
+    idUser: req.body.idUser,
     name: req.body.name,
-    numberPhone: req.body.numberPhone
+    phone: req.body.phone
   })
     .then(result => {
+
+      console.log('result add > ', result);
+      
       res.status(200).json({
         status: "SUCCESS",
         RESPONSE: {
-          _id: result._id,
+          idUser: result.idUser,
           name: result.name,
-          numberPhone: result.numberPhone
+          phone: result.phone
         }
+        
       })
         .catch(err => {
           res.status(401).json({
             status: "NOT FOUND",
             RESPONSE: {
-              _id: '',
+              idUser:'',
               name: '',
-              numberPhone: ''
+              phone: ''
             }
           })
         })
@@ -47,8 +56,11 @@ router.post('/', (req, res, next) => {
 
 
 router.put('/:id', (req, res) => {
+
+  console.log('data request >', req.body);
+  
   PhoneBook.findOneAndUpdate(
-    { _id: req.params.id },
+    { idUser: req.params.id },
     { name: req.body.name, numberPhone: req.body.numberPhone }, { new: true }
   ).then(data => {
     res.status(201).json({
@@ -67,7 +79,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   PhoneBook.findOneAndRemove({
-    _id: req.params.id
+    idUser: req.params.id
   })
     .then(data => {
       console.log('this >>', data)
