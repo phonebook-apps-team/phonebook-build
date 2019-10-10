@@ -26,10 +26,7 @@ class Phonebook extends React.Component {
                 <div className="container mt-5" >
                     <Title />
                     <div className="container">
-                        <button type="submit" className="btn btn-success mb-2 mt-3" onClick={()=>this.handleShow()}><i className='fa fa-plus'></i> Add</button>
-                        {
-                            this.state.showForm ? '' : <AddPhonebook />
-                        }
+                        <AddPhonebook />
                         <SearchPhonebook />
                         <ListPhonebook />
                     </div>
