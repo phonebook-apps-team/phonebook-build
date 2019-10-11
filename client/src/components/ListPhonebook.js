@@ -14,18 +14,18 @@ class ListPhonebook extends Component {
 
     render() {
 
-        let dataItem = this.props.getting.map((item, index) => {
-            return (
+        // let dataItem = this.props.getting.map((item, index) => {
+        //     return (
 
-                <ItemList
-                    key={index}
-                    idUser={item.idUser}
-                    name={item.name}
-                    phone={item.phone}
-                />
+        //         <ItemList
+        //             key={index}
+        //             idUser={item.idUser}
+        //             name={item.name}
+        //             phone={item.phone}
+        //         />
 
-            )
-        })
+        //     )
+        // })
         return (
             <table className="table table-striped mt-4">
                 <thead>
@@ -37,7 +37,7 @@ class ListPhonebook extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {dataItem}
+                    {/* {dataItem} */}
                 </tbody>
             </table>
         )
