@@ -8,16 +8,14 @@ class Phonebook extends React.Component {
 
     render() {
         return (
-            <body>
-                <div className="container mt-5" >
-                    <Title />
-                    <div className="container">
-                        <AddPhonebook />
-                        <SearchPhonebook />
-                        <ListPhonebook />
-                    </div>
+            <div className="container mt-5" >
+                <Title />
+                <div className="container">
+                    <AddPhonebook />
+                    <SearchPhonebook />
+                    <ListPhonebook />
                 </div>
-            </body>
+            </div>
         )
     }
 }

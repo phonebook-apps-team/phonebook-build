@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {postStore} from '../action/index'
+import { connect } from 'react-redux';
+import { postStore } from '../action/index'
 
 
 class AddPhonebook extends Component {
@@ -11,34 +11,34 @@ class AddPhonebook extends Component {
             phone: '',
             added: false
         }
-        
+
         this.handleButtonAdd = this.handleButtonAdd.bind(this)
         this.handleButtonCancle = this.handleButtonCancle.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleButtonAdd() {
-        this.setState ({ added: true })
+        this.setState({ added: true })
     }
 
-    handleButtonCancle(){
-        this.setState ({ added: false })
+    handleButtonCancle() {
+        this.setState({ added: false })
     }
 
-    handleChangeName(e){
-        this.state({name: e.target.value})
+    handleNameChange(event) {
+        this.setState({ name: event.target.value });
     }
 
-    handeleChangePhone(e){
-        this.state({phone: e.target.value})
+    handlePhoneChange(event) {
+        this.setState({ phone: event.target.value });
     }
 
-    handleSubmit(e){
-        e.preventDefault()
-        if(this.state.userId && this.state.name && this.state.phone){
-            this.props.poststore(this.state.name, this.state.phone)
-            this.setState({name: '', phone: ''})
+    handleSubmit(e) {
+        if (this.state.name && this.state.phone) {
+            this.props.postStore(this.state.name, this.state.phone)
+            this.setState({ name: '', phone: '' })
         }
-
+        e.preventDefault()
     }
 
     render() {
@@ -56,14 +56,14 @@ class AddPhonebook extends Component {
                                         <h6>name</h6>
                                     </label>
                                     <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                                        placeholder="name" value={this.state.name} onChange={this.handleChangeName} />
+                                        placeholder="name" name="name" value={this.state.name} onChange={this.handleNameChange.bind(this)} />
                                 </div>
                                 <div className="form-check mb-2 mr-sm-2">
                                     <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
                                         <h6>phone</h6>
                                     </label>
                                     <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                                        placeholder="phone" value={this.state.phone} onChange={this.handeleChangePhone} />
+                                        placeholder="phone" name="phone" value={this.state.phone} onChange={this.handlePhoneChange.bind(this)} />
                                 </div>
                                 <div className="form-check mb-2 mr-sm-2">
                                     <button type="submit" className="btn btn-success mb-2"><i className="fa fa-check-circle"></i> Submit</button>
@@ -75,7 +75,7 @@ class AddPhonebook extends Component {
                 </div>
             )
         } else {
-            return(
+            return (
                 <button type="button" className="btn btn-success mb-2 mt-3" onClick={this.handleButtonAdd}><i className='fa fa-plus'></i> Add</button>
             )
         }
@@ -83,7 +83,10 @@ class AddPhonebook extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    postStore: (name, phone) => dispatch (postStore(name, phone))
+    postStore: (name, phone) => dispatch(postStore(name, phone))
 })
 
-export default connect(null, mapDispatchToProps)(AddPhonebook)
+export default connect(
+    null,
+    mapDispatchToProps
+)(AddPhonebook)

@@ -9,8 +9,8 @@ router.get('/', function (req, res, next) {
     name: '',
     phone: ''
   }
-  PhoneBook.find().then(result => {
-    res.status(200).json(result)
+  PhoneBook.find().then(data => {
+    res.status(200).json(data)
   }).catch(err => {
     res.status(401).json({
       message: 'data not found'
@@ -28,16 +28,13 @@ router.post('/', (req, res, next) => {
     name: req.body.name,
     phone: req.body.phone
   })
-    .then(result => {
-
-      console.log('result add > ', result);
-      
+    .then(data => {
       res.status(200).json({
         status: "SUCCESS",
         RESPONSE: {
-          idUser: result.idUser,
-          name: result.name,
-          phone: result.phone
+          idUser: data.idUser,
+          name: data.name,
+          phone: data.phone
         }
         
       })

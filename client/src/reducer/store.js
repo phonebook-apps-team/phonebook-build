@@ -1,6 +1,7 @@
 const store = (state = [], action) => {
 
     switch (action.type) {
+      
       case 'LOAD_ITEM_SUCCESS':
       return action.getting.map((item)=>{
         item.sent = true;
