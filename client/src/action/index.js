@@ -1,19 +1,21 @@
 import axios from 'axios'
 
-const API_URL = 'localhost:3001/api/phonebooks/'
+
+const API_URL = 'http://localhost:3001/api/'
 
 const request =  axios.create({
     baseUrl: API_URL,
     timeout: 1000
 });
 
+
 // start load ItemList from database
-export const loadItemDataSuccess = (store) => ({
+
+export const loadItemDataSuccess = (getting) => ({
     type: 'LOAD_ITEM_SUCCESS',
-    store
+    getting
 
   })
-  console.log('data item success >',store);
   
   
   export const loadItemDataFailure = () => ({
@@ -22,8 +24,10 @@ export const loadItemDataSuccess = (store) => ({
   
   export const LoadItem = () => {
     return dispatch => {
-      return request.get('store')
+      return request.get(`phonebooks`)
       .then(function (response) {
+        console.log('data Response >', response);
+        
         dispatch(loadItemDataSuccess(response.data))
       })
       .catch(function (error) {
