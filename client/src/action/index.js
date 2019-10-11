@@ -13,7 +13,6 @@ export const loadItemDataSuccess = (store) => ({
     store
 
   })
-  console.log('data item success >',store);
   
   
   export const loadItemDataFailure = () => ({

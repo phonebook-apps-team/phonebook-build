@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {postStore} from '../action/index'
+
 
 class AddPhonebook extends Component {
     constructor(props) {
@@ -32,7 +35,8 @@ class AddPhonebook extends Component {
     handleSubmit(e){
         e.preventDefault()
         if(this.state.userId && this.state.name && this.state.phone){
-            
+            this.props.poststore(this.state.name, this.state.phone)
+            this.setState({name: '', phone: ''})
         }
 
     }
@@ -78,4 +82,8 @@ class AddPhonebook extends Component {
     }
 }
 
-export default AddPhonebook
+const mapDispatchToProps = dispatch => ({
+    postStore: (name, phone) => dispatch (postStore(name, phone))
+})
+
+export default connect(null, mapDispatchToProps)(AddPhonebook)
