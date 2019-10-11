@@ -36,7 +36,6 @@ class ListPhonebook extends Component {
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     {dataItem}
                 </tbody>
