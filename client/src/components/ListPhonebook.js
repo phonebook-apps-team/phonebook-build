@@ -1,34 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ItemList from '../container/ItemList';
 import { connect } from 'react-redux';
 import { LoadItem } from '../action';
 
 
 
-class ListPhonebook extends React.Component {
-    // state = {
-    //     _id: '',
-    //     idUser:'',
-    //     name: '',
-    //     phone: '',
-    //     book: []
+class ListPhonebook extends Component {
 
-    // }
-
-    componentDidMount(){
+    componentDidMount() {
         this.props.LoadItem();
-      }
+    }
 
 
     render() {
-        const dataItem = this.state.store.map((params, index) => 
-        <ItemList 
-        key={index}
-        idUser={params.idUser}
-        name={params.name}
-        phone={params.phone}
-        />
-        )
+
+        let dataItem = this.props.getting.map((item, index) => {
+            return (
+
+                <ItemList
+                    key={index}
+                    idUser={item.idUser}
+                    name={item.name}
+                    phone={item.phone}
+                />
+
+            )
+        })
         return (
             <table className="table table-striped mt-4">
                 <thead>
@@ -41,7 +38,7 @@ class ListPhonebook extends React.Component {
                 </thead>
 
                 <tbody>
-                {dataItem}
+                    {dataItem}
                 </tbody>
             </table>
         )
@@ -49,12 +46,12 @@ class ListPhonebook extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    store: state.store
-  })
+    getting: state.getting
+})
 
-  const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
     LoadItem: () => dispatch(LoadItem())
-  })
+})
 
 export default connect(
     mapStateToProps,
