@@ -3,8 +3,8 @@ const store = (state = [], action) => {
     switch (action.type) {
       
       case 'LOAD_ITEM_SUCCESS':
-      return action.getting.map((item)=>{
-        // item.sent = true;
+      return action.phonebooks.map((item)=>{
+        item.sent = true;
         return item
       })
   
@@ -21,7 +21,7 @@ const store = (state = [], action) => {
   
       case 'POST_STORE_SUCCESS':
       return action.store.map((item)=>{
-        // item.sent = true;
+        item.sent = true;
         return item
       })
   

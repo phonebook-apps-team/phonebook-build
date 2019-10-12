@@ -1,22 +1,21 @@
-import axios from 'axios'
+import axios from 'axios';
 
+const API_URL = 'http://localhost:3001/api/'
 
-// const API_URL = 'http://localhost:3001/api/'
-
-
-// const request =  axios.create({
-//     baseUrl: API_URL,
-//     timeout: 1000
-// });
+const request = axios.create({
+  baseURL: API_URL,
+  timeout: 1000
+});
 
 
 // start load ItemList from database
 
-export const loadItemDataSuccess = (getting) => ({
+export const loadItemDataSuccess = (phonebooks) => ({
     type: 'LOAD_ITEM_SUCCESS',
-    getting
-
+    phonebooks
   })
+  
+  console.log('result from', loadItemDataSuccess());
   
   
   export const loadItemDataFailure = () => ({
@@ -28,10 +27,10 @@ export const loadItemDataSuccess = (getting) => ({
   
   export const LoadItem = () => {
     return dispatch => {
-      return axios.get('http://localhost:3001/api/phonebooks')
-      .then(function (data) {
-        console.log('result dari >', data.data)
-        dispatch(loadItemDataSuccess(data))
+      return request.get('phonebooks')
+      .then(response => {
+        console.log('result dari >', response.data)
+        dispatch(loadItemDataSuccess(response.data))
       })
       .catch(function (error) {
         console.error(error);
@@ -60,7 +59,7 @@ export const loadItemDataSuccess = (getting) => ({
     let id = Date.now();
     return dispatch => {
       dispatch(postDataRedux(id, name, phone))
-      return axios.post('http://localhost:3001/api/phonebooks', {id, name, phone})
+      return request.post('phonebooks', {id, name, phone})
       .then(result => {
         dispatch(postDataSuccess(result.data))
       })

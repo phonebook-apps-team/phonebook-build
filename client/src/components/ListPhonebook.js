@@ -5,23 +5,14 @@ import { LoadItem } from '../action';
 
 
 class ListPhonebook extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            idUser: '',
-            name: '',
-            phone: ''
-        }
-    }
 
     componentDidMount() {
         this.props.LoadItem();
     }
 
-
     render() {
 
-        // let dataItem = this.props.getting.map((item, index) => {
+        // let dataItem = this.props.phonebooks.map((item, index) => {
         //     return (
         //         <ItemList
         //             key={index}
@@ -50,7 +41,7 @@ class ListPhonebook extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    getting: state.getting
+    phonebooks: state.phonebooks
 })
 
 const mapDispatchToProps = (dispatch) => ({
