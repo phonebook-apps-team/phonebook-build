@@ -24,7 +24,7 @@ class ItemList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    store: state.store
+    getting: state.getting
 })
 
 const mapDispatchToProps = (dispatch) => ({

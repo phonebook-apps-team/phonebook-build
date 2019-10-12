@@ -4,9 +4,7 @@ const store = (state = [], action) => {
       
       case 'LOAD_ITEM_SUCCESS':
       return action.getting.map((item)=>{
-        item.sent = true;
-        console.log('store item>',item);
-        
+        // item.sent = true;
         return item
       })
   
@@ -22,8 +20,8 @@ const store = (state = [], action) => {
       ]
   
       case 'POST_STORE_SUCCESS':
-      return action.stores.map((item)=>{
-        item.sent = true;
+      return action.store.map((item)=>{
+        // item.sent = true;
         return item
       })
   

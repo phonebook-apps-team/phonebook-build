@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import ItemList from '../container/ItemList';
+// import ItemList from '../container/ItemList';
 import { connect } from 'react-redux';
 import { LoadItem } from '../action';
 
 
-
 class ListPhonebook extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            idUser: '',
+            name: '',
+            phone: ''
+        }
+    }
 
     componentDidMount() {
         this.props.LoadItem();
@@ -14,18 +21,16 @@ class ListPhonebook extends Component {
 
     render() {
 
-        let dataItem = this.props.getting.map((item, index) => {
-            return (
-
-                <ItemList
-                    key={index}
-                    idUser={item.idUser}
-                    name={item.name}
-                    phone={item.phone}
-                />
-
-            )
-        })
+        // let dataItem = this.props.getting.map((item, index) => {
+        //     return (
+        //         <ItemList
+        //             key={index}
+        //             idUser={item.idUser}
+        //             name={item.name}
+        //             phone={item.phone}
+        //         />
+        //     )
+        // })
         return (
             <table className="table table-striped mt-4">
                 <thead>
@@ -33,11 +38,11 @@ class ListPhonebook extends Component {
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Phone</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Asaosinction</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {dataItem}
+                    {/* {dataItem} */}
                 </tbody>
             </table>
         )
