@@ -3,7 +3,7 @@ const store = (state = [], action) => {
     switch (action.type) {
       
       case 'LOAD_ITEM_SUCCESS':
-      return action.getting.map((item)=>{
+      return action.phonbooks.map((item)=>{
         item.sent = true;
         console.log('store item>',item);
         

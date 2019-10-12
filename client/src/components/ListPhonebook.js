@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ItemList from '../container/ItemList';
+// import ItemList from '../container/ItemList';
 import { connect } from 'react-redux';
 import { LoadItem } from '../action';
 
@@ -45,7 +45,7 @@ class ListPhonebook extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    getting: state.getting
+    phonebooks: state.phonebooks
 })
 
 const mapDispatchToProps = (dispatch) => ({

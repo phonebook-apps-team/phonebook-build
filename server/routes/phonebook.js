@@ -4,20 +4,17 @@ var PhoneBook = require('../models/users')
 
 
 router.get('/', function (req, res, next) {
-  let response = {
-    idUser: '',
-    name: '',
-    phone: ''
-  }
+  
   PhoneBook.find().then(data => {
     res.status(200).json(data)
-  }).catch(err => {
+  }).catch(() => {
     res.status(401).json({
       message: 'data not found'
     })
   })
 
 });
+
 
 router.post('/', (req, res, next) => {
 

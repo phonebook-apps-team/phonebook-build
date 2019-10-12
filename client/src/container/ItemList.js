@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { LoadItem } from '../action/index'
+// import { connect } from 'react-redux'
+// import { LoadItem } from '../action/index'
 
 class ItemList extends Component {
 
-    componentDidMount() {
-        this.props.LoadItem();
-    }
+    // componentDidMount() {
+    //     this.props.LoadItem();
+    // }
 
     render() {
         return (
@@ -23,15 +23,12 @@ class ItemList extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    store: state.store
-})
+// const mapStateToProps = (state) => ({
+//     store: state.store
+// })
 
-const mapDispatchToProps = (dispatch) => ({
-    LoadItem: () => dispatch(LoadItem())
-})
+// const mapDispatchToProps = (dispatch) => ({
+//     LoadItem: () => dispatch(LoadItem())
+// })
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ItemList)
+export default ItemList
