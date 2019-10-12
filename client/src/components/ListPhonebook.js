@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import ItemList from '../container/ItemList';
 import { connect } from 'react-redux';
 import { LoadItem } from '../action';
+// import { deleteStore } from '../action';
 
 
 class ListPhonebook extends Component {
@@ -16,6 +17,7 @@ class ListPhonebook extends Component {
 
     componentDidMount() {
         this.props.LoadItem();
+        // this.props.deleteStore();
     }
 
 
@@ -56,10 +58,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     LoadItem: () => dispatch(LoadItem())
 })
+// const mapDeleteToProps = (dispatch) => ({
+//     deleteStore: () => dispatch(deleteStore())
+// })
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
+    // mapDeleteToProps
 )(ListPhonebook)
 
 
