@@ -23,9 +23,15 @@ class ItemList extends Component {
     }
 }
 
+<<<<<<< HEAD
 // const mapStateToProps = (state) => ({
 //     store: state.store
 // })
+=======
+const mapStateToProps = (state) => ({
+    phonebooks: state.phonebooks
+})
+>>>>>>> 8f8a781bb915ac5f6be78a91a4af3d6eed9ae8e2
 
 // const mapDispatchToProps = (dispatch) => ({
 //     LoadItem: () => dispatch(LoadItem())

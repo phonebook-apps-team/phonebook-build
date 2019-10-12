@@ -3,10 +3,12 @@ const store = (state = [], action) => {
     switch (action.type) {
       
       case 'LOAD_ITEM_SUCCESS':
+<<<<<<< HEAD
       return action.phonbooks.map((item)=>{
+=======
+      return action.phonebooks.map((item)=>{
+>>>>>>> 8f8a781bb915ac5f6be78a91a4af3d6eed9ae8e2
         item.sent = true;
-        console.log('store item>',item);
-        
         return item
       })
   
@@ -22,7 +24,7 @@ const store = (state = [], action) => {
       ]
   
       case 'POST_STORE_SUCCESS':
-      return action.stores.map((item)=>{
+      return action.store.map((item)=>{
         item.sent = true;
         return item
       })

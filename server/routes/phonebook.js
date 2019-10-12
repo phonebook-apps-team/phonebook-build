@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
   console.log('req Body > ', req.body);
   
   PhoneBook.create({
-    idUser: req.body.idUser,
+    idUser: Math.random(),
     name: req.body.name,
     phone: req.body.phone
   })
@@ -33,18 +33,12 @@ router.post('/', (req, res, next) => {
           name: data.name,
           phone: data.phone
         }
-        
-      })
-        .catch(err => {
-          res.status(401).json({
-            status: "NOT FOUND",
-            RESPONSE: {
-              idUser:'',
-              name: '',
-              phone: ''
-            }
-          })
+
+      }).catch(() => {
+        res.status(401).json({
+          status: "NOT FOUND"
         })
+      })
     })
 })
 
@@ -52,7 +46,7 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res) => {
 
   console.log('data request >', req.body);
-  
+
   PhoneBook.findOneAndUpdate(
     { idUser: req.params.id },
     { name: req.body.name, numberPhone: req.body.numberPhone }, { new: true }

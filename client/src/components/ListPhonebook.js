@@ -4,26 +4,22 @@ import { connect } from 'react-redux';
 import { LoadItem } from '../action';
 
 
-
 class ListPhonebook extends Component {
 
     componentDidMount() {
         this.props.LoadItem();
     }
 
-
     render() {
 
-        // let dataItem = this.props.getting.map((item, index) => {
+        // let dataItem = this.props.phonebooks.map((item, index) => {
         //     return (
-
         //         <ItemList
         //             key={index}
         //             idUser={item.idUser}
         //             name={item.name}
         //             phone={item.phone}
         //         />
-
         //     )
         // })
         return (
@@ -33,7 +29,7 @@ class ListPhonebook extends Component {
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Phone</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Asaosinction</th>
                     </tr>
                 </thead>
                 <tbody>
