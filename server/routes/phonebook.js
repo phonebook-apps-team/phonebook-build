@@ -4,7 +4,6 @@ var PhoneBook = require('../models/users')
 
 
 router.get('/', function (req, res, next) {
-  
   PhoneBook.find().then(data => {
     res.status(200).json(data)
   }).catch(() => {

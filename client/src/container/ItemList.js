@@ -1,40 +1,98 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux'
-// import { LoadItem } from '../action/index'
+import {connect} from 'react-redux'
+import { putPhonebook } from '../action';
 
 class ItemList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            editButton: false,
+            idUser: props.idUser,
+            name: props.name,
+            phone: props.phone
+        }
+        this.handleEditOn = this.handleEditOn.bind(this)
+        this.handleEditOff = this.handleEditOff.bind(this)
+    }
 
-    // componentDidMount() {
-    //     this.props.LoadItem();
-    // }
+    handleChange = e => {
+        const name = e.target.name;
+        this.setState({ [name]: e.target.value });
+      };
+
+    handleEditOn(e) {
+        e.preventDefault();
+        this.setState({ editButton: true });
+    }
+
+    handleEditOff(e) {
+        e.preventDefault()
+        this.setState({ editButton: false })
+
+    }
+
+
+
 
     render() {
+        const { idUser, name, phone } = this.props;
         return (
             <tr>
-                <th scope="row">{this.props.idUser}</th>
-                <td>{this.props.name}</td>
-                <td>{this.props.phone}</td>
+                <th scope="row">{idUser}</th>
+                {!this.state.editButton && (
+                <>
+                <td>{name}</td>
+                <td>{phone}</td>
                 <td>
-                    <button type="submit" class="btn btn-success mb-2">Edit</button>
+                    <button type="submit" class="btn btn-success mb-2" onClick={ this.handleEditOn}>Edit</button>
+
                     <button type="submit" class="btn btn-danger mb-2 text-white">Delete</button>
                 </td>
+                </>
+                )}
+
+                {this.state.editButton && (
+                <>
+                    <td>
+                        <div class="form-check mb-2 mr-sm-2">
+                            <input type="text" 
+                            className="form-control mb-2 mr-sm-2" 
+                            id="inputname"
+                            value={this.props.name}
+                            placeholder="name" 
+                            onChange={this.handelChange}/>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-check mb-2 mr-sm-2">
+                            <input type="text" 
+                            className="form-control mb-2 mr-sm-2" 
+                            id="inlineFormInputName2"
+                            placeholder="phone"
+                            value={this.props.phone} 
+                            onChange={this.handelChange} />
+                        </div>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary mb-2">save</button>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-danger mb-2" onClick={ this.handleEditOff}>cancle</button>
+                    </td>
+
+                </>
+                )}
             </tr>
+
+
+
+
         )
     }
 }
 
-<<<<<<< HEAD
-// const mapStateToProps = (state) => ({
-//     store: state.store
-// })
-=======
-const mapStateToProps = (state) => ({
-    phonebooks: state.phonebooks
-})
->>>>>>> 8f8a781bb915ac5f6be78a91a4af3d6eed9ae8e2
 
-// const mapDispatchToProps = (dispatch) => ({
-//     LoadItem: () => dispatch(LoadItem())
-// })
-
-export default ItemList
+export default connect(
+null,
+)
+(ItemList);

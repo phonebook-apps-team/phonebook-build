@@ -3,11 +3,7 @@ const store = (state = [], action) => {
     switch (action.type) {
       
       case 'LOAD_ITEM_SUCCESS':
-<<<<<<< HEAD
-      return action.phonbooks.map((item)=>{
-=======
-      return action.phonebooks.map((item)=>{
->>>>>>> 8f8a781bb915ac5f6be78a91a4af3d6eed9ae8e2
+      return action.store.map((item)=>{
         item.sent = true;
         return item
       })
@@ -47,6 +43,29 @@ const store = (state = [], action) => {
       case 'DELETE_STORE_FAILURE':
       default:
       return state
+
+      case 'PUT_PHONBOOKS':
+      const newState = [];
+      state.forEach(item => {
+        if (item.idUser === action.idUser){
+          return newState.push(action)
+        }
+        return newState.push(item)
+      })
+
+      case 'PUT_PHONEBOOKS_SUCCSESS':
+        return action.store.map(item => {
+          item.sent = true;
+          return item;
+        })
+
+      case 'PUT_PHONEBOOKS_FAILURE':
+        return state.map(item => {
+          if (item.idUser === action.idUser) {
+            item.sent = false;
+          }
+          return item
+        })
     }
   }
   

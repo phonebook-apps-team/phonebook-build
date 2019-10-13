@@ -10,9 +10,10 @@ const request = axios.create({
 
 // start load ItemList from database
 
-export const loadItemDataSuccess = (phonebooks) => ({
+export const loadItemDataSuccess = store => ({
     type: 'LOAD_ITEM_SUCCESS',
-    phonebooks
+    store
+    
   })
   
   console.log('result from', loadItemDataSuccess());
@@ -29,7 +30,9 @@ export const loadItemDataSuccess = (phonebooks) => ({
     return dispatch => {
       return request.get('phonebooks')
       .then(response => {
-        console.log('result dari >', response.data)
+        
+        console.log('result dari phonebooks >', response.data)
+
         dispatch(loadItemDataSuccess(response.data))
       })
       .catch(function (error) {
@@ -116,3 +119,34 @@ export const loadItemDataSuccess = (phonebooks) => ({
     }
   }
   // End resend data
+
+  //start edit data
+  export const putPhonebookSuccess = store => ({
+    type: 'PUT_PHONEBOOKS_SUCCESS',
+    store
+  })
+  export const putPhonebookFailure = idUser => ({
+    type: 'PUT_PHONEBOOKS_FAILURE',
+    idUser
+  })
+  const putPhonebookRedux = (idUser, name, phone) => ({
+    type: 'PUT_PHONEBOOKS',
+    idUser, 
+    name,
+    phone
+  });
+  export const putPhonebook = (idUser, name, phone) => {
+    return dispatch => {
+      dispatchEvent(putPhonebookRedux(idUser, name, phone));
+      return request
+      .put(`phonebooks/${idUser}`, {name, phone})
+      .then(response => {
+        dispatchEvent(putPhonebookSuccess(response.data));
+      })
+      .catch(err => {
+        console.error(err);
+        dispatch(putPhonebookFailure());
+      })
+    }
+  }
+  // end edit data

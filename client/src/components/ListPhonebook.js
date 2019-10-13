@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import ItemList from '../container/ItemList';
+import ItemList from '../container/ItemList';
 import { connect } from 'react-redux';
 import { LoadItem } from '../action';
 
@@ -12,16 +12,19 @@ class ListPhonebook extends Component {
 
     render() {
 
-        // let dataItem = this.props.phonebooks.map((item, index) => {
-        //     return (
-        //         <ItemList
-        //             key={index}
-        //             idUser={item.idUser}
-        //             name={item.name}
-        //             phone={item.phone}
-        //         />
-        //     )
-        // })
+        let dataItem = this.props.store.map((item, index) => {
+            return (
+                <ItemList
+                    key={index}
+                    idUser={item.idUser}
+                    name={item.name}
+                    phone={item.phone}
+                />
+            )
+        })
+        console.log('data Item > ', dataItem);
+        
+
         return (
             <table className="table table-striped mt-4">
                 <thead>
@@ -29,11 +32,11 @@ class ListPhonebook extends Component {
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Phone</th>
-                        <th scope="col">Asaosinction</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {dataItem} */}
+                    {dataItem}
                 </tbody>
             </table>
         )
@@ -41,7 +44,7 @@ class ListPhonebook extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    phonebooks: state.phonebooks
+    store: state.store
 })
 
 const mapDispatchToProps = (dispatch) => ({
