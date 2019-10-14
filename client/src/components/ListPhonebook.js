@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ItemList from '../container/ItemList';
 import { connect } from 'react-redux';
 import { LoadItem } from '../action';
+import SearchPhonebook from '../components/SearchPhonebook';
 
 
 class ListPhonebook extends Component {
@@ -10,6 +11,7 @@ class ListPhonebook extends Component {
         this.props.LoadItem();
         // this.props.deleteStore();
     }
+ 
 
     
     
@@ -33,7 +35,7 @@ class ListPhonebook extends Component {
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Phone</th>
-                        <th scope="col">Asaosinction</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>  
                 <tbody>
