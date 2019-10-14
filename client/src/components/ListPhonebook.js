@@ -16,7 +16,7 @@ class ListPhonebook extends Component {
             return (
                 <ItemList
                     key={index}
-                    _id={item._id}
+                    idUser={item.idUser}
                     name={item.name}
                     phone={item.phone}
                 />

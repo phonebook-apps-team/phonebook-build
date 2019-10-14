@@ -12,7 +12,7 @@ const store = (state = [], action) => {
       return [
         ...state,
         {
-          _id: action._id,
+          idUser: action.idUser,
           name: action.name,
           phone: action.phone,
           sent: true
@@ -34,7 +34,7 @@ const store = (state = [], action) => {
       })
   
       case 'DELETE_STORE':
-      return state.filter(item => item._id !== action._id)
+      return state.filter(item => item.idUser !== action.idUser)
   
       case 'DELETE_STORE_SUCCESS':
       return state
@@ -47,7 +47,7 @@ const store = (state = [], action) => {
       case 'PUT_PHONEBOOKS':
       const newState = [];
       state.forEach(item => {
-        if (item._id === action._id){
+        if (item.idUser === action.idUser){
           return newState.push(action)
         }
         return newState.push(item)
@@ -67,7 +67,7 @@ const store = (state = [], action) => {
 
       case 'PUT_PHONEBOOKS_FAILURE':
         return state.map(item => {
-          if (item._id === action._id) {
+          if (item.idUser === action.idUser) {
             item.sent = false;
           }
           return item
