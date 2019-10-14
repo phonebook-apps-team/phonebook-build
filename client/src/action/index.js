@@ -43,27 +43,29 @@ export const loadItemDataSuccess = store => ({
   }
   
   // start post data
- const postDataSuccess = (store) => ({
+ const postDataSuccess = phonebooks => ({
     type: 'POST_STORE_SUCCESS',
-    store
+    phonebooks
   })
 
-  export const postDataFailure = (id) => ({
+  export const postDataFailure = (_id) => ({
     type: 'POST_STORE_SUCCESS',
-    id
+    _id
   })
 
-  export const postDataRedux = (id, name, phone) => ({
+  export const postDataRedux = (_id, name, phone) => ({
     type:'POST_STORE',
-    id, name, phone
+    _id, name, phone
   })
 
   export const postStore = (name, phone) => {
-    let id = Date.now();
+    let _id = Date.now();
     return dispatch => {
-      dispatch(postDataRedux(id, name, phone))
-      return request.post('phonebooks', {id, name, phone})
+      dispatch(postDataRedux(_id, name, phone))
+      return request.post('phonebooks', {_id, name, phone})
       .then(result => {
+        console.log('this result data post > ', result.data);
+        
         dispatch(postDataSuccess(result.data))
       })
       .catch(err => {
@@ -74,9 +76,9 @@ export const loadItemDataSuccess = store => ({
   // End post data
 
   // Start Delete data
-  const deleteStoreRedux = (idUser) => ({
+  const deleteStoreRedux = (_id) => ({
     type: 'DELETE_STORE',
-    idUser
+    _id
   })
 
   export const deleteStoreSuccess = (store) => ({
@@ -88,16 +90,16 @@ export const loadItemDataSuccess = store => ({
     type: 'DELETE_STORE_FAILURE'
   })
 
-  export const deleteStore = (idUser) => {
+  export const deleteStore = (_id) => {
     return dispatch => {
-      dispatch(deleteStoreRedux(idUser))
-      return request.delete(`phonebooks/${idUser}`)
+      dispatch(deleteStoreRedux(_id))
+      return request.delete(`phonebooks/${_id}`)
       .then(result => {
         dispatch(deleteStoreSuccess(result.data))
       })
       .catch(err => {
         console.log(err);
-        dispatch(deleteStoreFailure(idUser))
+        dispatch(deleteStoreFailure(_id))
       });
     }
   }
@@ -125,21 +127,21 @@ export const loadItemDataSuccess = store => ({
     type: 'PUT_PHONEBOOKS_SUCCESS',
     store
   })
-  export const putPhonebookFailure = idUser => ({
+  export const putPhonebookFailure = _id => ({
     type: 'PUT_PHONEBOOKS_FAILURE',
-    idUser
+    _id
   })
-  const putPhonebookRedux = (idUser, name, phone) => ({
+  const putPhonebookRedux = (_id, name, phone) => ({
     type: 'PUT_PHONEBOOKS',
-    idUser, 
+    _id, 
     name,
     phone
   });
-  export const putPhonebook = (idUser, name, phone) => {
+  export const putPhonebook = (_id, name, phone) => {
     return dispatch => {
-      dispatch(putPhonebookRedux(idUser, name, phone));
+      dispatch(putPhonebookRedux(_id, name, phone));
       return request
-      .put(`phonebooks/${idUser}`, {name, phone})
+      .put(`phonebooks/${_id}`, {name, phone})
       .then(response => {
         dispatch(putPhonebookSuccess(response.data));
       })

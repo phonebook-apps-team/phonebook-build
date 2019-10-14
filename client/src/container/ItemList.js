@@ -7,6 +7,7 @@ class ItemList extends Component {
         super(props)
         this.state = {
             editButton: false,
+            _id: props._id,
             idUser: props.idUser,
             name: props.name,
             phone: props.phone
@@ -34,19 +35,19 @@ class ItemList extends Component {
 
     handleEditSave = (e) => {
         e.preventDefault();
-        const {idUser, name, phone} = this.state;
+        const {_id, name, phone} = this.state;
         if (name && phone) {
-            this.props.putPhonebook(idUser, name, phone)
+            this.props.putPhonebook(_id, name, phone)
             this.setState({ editButton: false });
         }
-        console.log('data handleEditSave > ',idUser, name, phone);
+        console.log('data handleEditSave > ',_id, name, phone);
         
     }
 
     handleDelete = (e) => {
         e.preventDefault()
-        const { idUser } = this.state
-        this.props.deleteStore(idUser)
+        const { _id } = this.state
+        this.props.deleteStore(_id)
 
     }
 
@@ -54,10 +55,10 @@ class ItemList extends Component {
 
 
     render() {
-        const { idUser, name, phone } = this.props;
+        const { _id, name, phone } = this.props;
         return (
             <tr>
-                <th scope="row">{idUser}</th>
+                <th scope="row">{_id}</th>
                 {!this.state.editButton && (
                 <>
                 <td>{name}</td>
@@ -111,11 +112,11 @@ class ItemList extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    putPhonebook: (idUser, name, phone) => {
-        dispatch(putPhonebook(idUser, name, phone))
+    putPhonebook: (_id, name, phone) => {
+        dispatch(putPhonebook(_id, name, phone))
     },
-    deleteStore: (idUser, name, phone) => {
-        dispatch(deleteStore(idUser, name, phone))
+    deleteStore: (_id, name, phone) => {
+        dispatch(deleteStore(_id, name, phone))
     }
 })
 

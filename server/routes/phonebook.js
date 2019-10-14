@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
   console.log('req Body > ', req.body);
   
   PhoneBook.create({
-    idUser: Math.random(),
+    _id: req.body._id,
     name: req.body.name,
     phone: req.body.phone
   })
@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
       res.status(200).json({
         status: "SUCCESS",
         RESPONSE: {
-          idUser: data.idUser,
+          _id: data._id,
           name: data.name,
           phone: data.phone
         }
@@ -47,7 +47,7 @@ router.put('/:id', (req, res) => {
   console.log('data request >', req.body);
 
   PhoneBook.findOneAndUpdate(
-    { idUser: req.params.id },
+    { _id: req.params.id },
     { name: req.body.name, phone: req.body.phone }, { new: true }
   ).then(data => {
     res.status(201).json({
@@ -66,7 +66,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   PhoneBook.findOneAndRemove({
-    idUser: req.params.id
+    _id: req.params.id
   })
     .then(data => {
       console.log('this >>', data)
