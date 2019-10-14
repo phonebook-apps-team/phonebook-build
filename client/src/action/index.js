@@ -26,7 +26,6 @@ export const loadItemDataSuccess = (phonebooks) => ({
     return dispatch => {
       return request.get('phonebooks')
       .then(response => {
-        console.log('result dari >', response.data)
         dispatch(loadItemDataSuccess(response.data))
       })
       .catch(function (error) {
@@ -58,7 +57,6 @@ export const loadItemDataSuccess = (phonebooks) => ({
       dispatch(postDataRedux(id, name, phone))
       return request.post('phonebooks', {id, name, phone})
       .then(result => {
-        console.log('hasil dari', result)
         dispatch(postDataSuccess(result.data))
       })
       .catch(err => {
