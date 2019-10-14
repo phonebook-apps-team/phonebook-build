@@ -4,11 +4,6 @@ var PhoneBook = require('../models/users')
 
 
 router.get('/', function (req, res, next) {
-  let response = {
-    idUser: '',
-    name: '',
-    phone: ''
-  }
   PhoneBook.find().then(data => {
     res.status(200).json(data)
   }).catch(() => {
@@ -21,28 +16,22 @@ router.get('/', function (req, res, next) {
 
 router.post('/', (req, res, next) => {
 
-  console.log('req Body > ', req.body);
-  
-  PhoneBook.create({
-    idUser: Math.random(),
-    name: req.body.name,
-    phone: req.body.phone
-  })
-    .then(data => {
-      res.status(200).json({
-        status: "SUCCESS",
-        RESPONSE: {
-          idUser: data.idUser,
-          name: data.name,
-          phone: data.phone
-        }
+  const { idUser, name, phone } = req.body;
+  let response = {
+    status: true,
+    message: 'data have been added',
+    data: null
+  }
+  let phoneBook = new PhoneBook({ idUser, name, phone })
 
-      }).catch(() => {
-        res.status(401).json({
-          status: "NOT FOUND"
-        })
-      })
-    })
+  phoneBook.save().then(data => {
+    res.status(200).json(
+      data
+    )
+  }).catch(err => {
+    response.status = false,
+      response.message = 'can not add'
+  })
 })
 
 

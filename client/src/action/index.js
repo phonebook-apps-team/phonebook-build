@@ -26,6 +26,7 @@ export const loadItemDataSuccess = (phonebooks) => ({
     return dispatch => {
       return request.get('phonebooks')
       .then(response => {
+        console.log('result dari >', response.data)
         dispatch(loadItemDataSuccess(response.data))
       })
       .catch(function (error) {
@@ -41,22 +42,25 @@ export const loadItemDataSuccess = (phonebooks) => ({
     phonebooks
   })
 
-  export const postDataFailure = (id) => ({
+  export const postDataFailure = (idUser) => ({
     type: 'POST_STORE_FAILURE',
-    id
+    idUser
   })
 
-  export const postDataRedux = (id, name, phone) => ({
+  export const postDataRedux = (idUser, name, phone) => ({
     type:'POST_STORE',
-    id, name, phone
+    idUser, name, phone
   })
 
   export const postStore = (name, phone) => {
-    let id = Math.random();
+    let idUser = Date.now();
+
     return dispatch => {
-      dispatch(postDataRedux(id, name, phone))
-      return request.post('phonebooks', {id, name, phone})
+      dispatch(postDataRedux(idUser, name, phone))
+      return request.post('phonebooks', {idUser, name, phone})
       .then(result => {
+        console.log('hasil respon>>',result.data);
+        
         dispatch(postDataSuccess(result.data))
       })
       .catch(err => {
