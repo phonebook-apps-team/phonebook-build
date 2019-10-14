@@ -53,13 +53,13 @@ export const loadItemDataSuccess = (phonebooks) => ({
   })
 
   export const postStore = (name, phone) => {
-    let idUser = Date.now();
-
+    let idUser = Date.now()
+    
     return dispatch => {
       dispatch(postDataRedux(idUser, name, phone))
       return request.post('phonebooks', {idUser, name, phone})
       .then(result => {
-        console.log('hasil respon>>',result.data);
+        console.log('this result data post > ', result.data);
         
         dispatch(postDataSuccess(result.data))
       })
@@ -71,9 +71,9 @@ export const loadItemDataSuccess = (phonebooks) => ({
   // End post data
 
   // Start Delete data
-  const deleteStoreRedux = (id) => ({
+  const deleteStoreRedux = (idUser) => ({
     type: 'DELETE_STORE',
-    id
+    idUser
   })
 
   export const deleteStoreSuccess = (store) => ({
@@ -85,16 +85,16 @@ export const loadItemDataSuccess = (phonebooks) => ({
     type: 'DELETE_STORE_FAILURE'
   })
 
-  export const deleteStore = (id) => {
+  export const deleteStore = (idUser) => {
     return dispatch => {
-      dispatch(deleteStoreRedux(id))
-      return axios.delete(`http://localhost:3001/api/phonebooks/${id}`)
+      dispatch(deleteStoreRedux(idUser))
+      return request.delete(`phonebooks/${idUser}`)
       .then(result => {
         dispatch(deleteStoreSuccess(result.data))
       })
       .catch(err => {
         console.log(err);
-        dispatch(deleteStoreFailure(id))
+        dispatch(deleteStoreFailure(idUser))
       });
     }
   }
@@ -116,3 +116,34 @@ export const loadItemDataSuccess = (phonebooks) => ({
     }
   }
   // End resend data
+
+  //start edit data
+  export const putPhonebookSuccess = store => ({
+    type: 'PUT_PHONEBOOKS_SUCCESS',
+    store
+  })
+  export const putPhonebookFailure = idUser => ({
+    type: 'PUT_PHONEBOOKS_FAILURE',
+    idUser
+  })
+  const putPhonebookRedux = (idUser, name, phone) => ({
+    type: 'PUT_PHONEBOOKS',
+    idUser, 
+    name,
+    phone
+  });
+  export const putPhonebook = (idUser, name, phone) => {
+    return dispatch => {
+      dispatch(putPhonebookRedux(idUser, name, phone));
+      return request
+      .put(`phonebooks/${idUser}`, {name, phone})
+      .then(response => {
+        dispatch(putPhonebookSuccess(response.data));
+      })
+      .catch(err => {
+        console.error(err);
+        dispatch(putPhonebookFailure());
+      })
+    }
+  }
+  // end edit data

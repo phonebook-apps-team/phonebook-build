@@ -42,9 +42,6 @@ class AddPhonebook extends Component {
         e.preventDefault()
     }
 
-    componentWillMount(){
-        this.setState({added: false})
-    }
 
     render() {
         if (this.state.added) {
