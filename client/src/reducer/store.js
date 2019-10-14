@@ -34,17 +34,17 @@ const store = (state = [], action) => {
       })
   
       case 'DELETE_STORE':
-      return state.filter((item) => item.idUser !== action.idUser)
+      return state.filter(item => item.idUser !== action.idUser)
   
       case 'DELETE_STORE_SUCCESS':
       return state
   
-      case 'LOAD_STORE_FAILURE':
       case 'DELETE_STORE_FAILURE':
       default:
       return state
 
-      case 'PUT_PHONBOOKS':
+      
+      case 'PUT_PHONEBOOKS':
       const newState = [];
       state.forEach(item => {
         if (item.idUser === action.idUser){
@@ -52,9 +52,15 @@ const store = (state = [], action) => {
         }
         return newState.push(item)
       })
+      return newState;
 
-      case 'PUT_PHONEBOOKS_SUCCSESS':
-        return action.store.map(item => {
+
+      case 'PUT_PHONEBOOKS_SUCCESS':
+        console.log('case edit success');
+        
+        return action.store.map((item) => {
+          console.log('data item edit > ', item);
+          
           item.sent = true;
           return item;
         })

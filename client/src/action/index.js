@@ -74,9 +74,9 @@ export const loadItemDataSuccess = store => ({
   // End post data
 
   // Start Delete data
-  const deleteStoreRedux = (id) => ({
+  const deleteStoreRedux = (idUser) => ({
     type: 'DELETE_STORE',
-    id
+    idUser
   })
 
   export const deleteStoreSuccess = (store) => ({
@@ -88,16 +88,16 @@ export const loadItemDataSuccess = store => ({
     type: 'DELETE_STORE_FAILURE'
   })
 
-  export const deleteStore = (id) => {
+  export const deleteStore = (idUser) => {
     return dispatch => {
-      dispatch(deleteStoreRedux(id))
-      return axios.delete(`http://localhost:3001/api/phonebooks/${id}`)
+      dispatch(deleteStoreRedux(idUser))
+      return request.delete(`phonebooks/${idUser}`)
       .then(result => {
         dispatch(deleteStoreSuccess(result.data))
       })
       .catch(err => {
         console.log(err);
-        dispatch(deleteStoreFailure(id))
+        dispatch(deleteStoreFailure(idUser))
       });
     }
   }
@@ -137,11 +137,11 @@ export const loadItemDataSuccess = store => ({
   });
   export const putPhonebook = (idUser, name, phone) => {
     return dispatch => {
-      dispatchEvent(putPhonebookRedux(idUser, name, phone));
+      dispatch(putPhonebookRedux(idUser, name, phone));
       return request
       .put(`phonebooks/${idUser}`, {name, phone})
       .then(response => {
-        dispatchEvent(putPhonebookSuccess(response.data));
+        dispatch(putPhonebookSuccess(response.data));
       })
       .catch(err => {
         console.error(err);
