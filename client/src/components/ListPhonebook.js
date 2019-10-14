@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import ItemList from '../container/ItemList';
 import { connect } from 'react-redux';
 import { LoadItem } from '../action';
+import SearchPhonebook from '../components/SearchPhonebook';
 
 
 class ListPhonebook extends Component {
 
     componentDidMount() {
         this.props.LoadItem();
+        // this.props.deleteStore();
     }
+ 
 
+    
+    
     render() {
 
         let dataItem = this.props.store.map((item, index) => {
@@ -34,7 +39,7 @@ class ListPhonebook extends Component {
                         <th scope="col">Phone</th>
                         <th scope="col">Action</th>
                     </tr>
-                </thead>
+                </thead>  
                 <tbody>
                     {dataItem}
                 </tbody>
@@ -50,11 +55,15 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     LoadItem: () => dispatch(LoadItem())
 })
+// const mapDeleteToProps = (dispatch) => ({
+//     deleteStore: () => dispatch(deleteStore())
+// })
 
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
+    // mapDeleteToProps
 )(ListPhonebook)
 
 

@@ -10,14 +10,10 @@ const request = axios.create({
 
 // start load ItemList from database
 
-export const loadItemDataSuccess = store => ({
-    type: 'LOAD_ITEM_SUCCESS',
-    store
-    
-  })
-  
-  console.log('result from', loadItemDataSuccess());
-  
+export const loadItemDataSuccess = (phonebooks) => ({
+  type: 'LOAD_ITEM_SUCCESS',
+  phonebooks
+})
   
   export const loadItemDataFailure = () => ({
     type: 'LOAD_ITEM_FAILURE'
@@ -30,9 +26,6 @@ export const loadItemDataSuccess = store => ({
     return dispatch => {
       return request.get('phonebooks')
       .then(response => {
-        
-        console.log('result dari phonebooks >', response.data)
-
         dispatch(loadItemDataSuccess(response.data))
       })
       .catch(function (error) {
@@ -43,13 +36,13 @@ export const loadItemDataSuccess = store => ({
   }
   
   // start post data
- const postDataSuccess = phonebooks => ({
+ const postDataSuccess = (phonebooks) => ({
     type: 'POST_STORE_SUCCESS',
     phonebooks
   })
 
   export const postDataFailure = (idUser) => ({
-    type: 'POST_STORE_SUCCESS',
+    type: 'POST_STORE_FAILURE',
     idUser
   })
 
@@ -59,7 +52,8 @@ export const loadItemDataSuccess = store => ({
   })
 
   export const postStore = (name, phone) => {
-    let idUser = Date.now();
+    let idUser = Date.now()
+    
     return dispatch => {
       dispatch(postDataRedux(idUser, name, phone))
       return request.post('phonebooks', {idUser, name, phone})

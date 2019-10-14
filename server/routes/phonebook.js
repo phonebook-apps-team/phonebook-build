@@ -65,6 +65,8 @@ router.put('/:id', (req, res) => {
 
 
 router.delete('/:id', (req, res) => {
+  console.log(req.params.id);
+  
   PhoneBook.findOneAndRemove({
     idUser: req.params.id
   })

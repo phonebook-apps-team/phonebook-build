@@ -25,6 +25,7 @@ class AddPhonebook extends Component {
         this.setState({ added: false })
     }
 
+
     handleNameChange(event) {
         this.setState({ name: event.target.value });
     }
@@ -39,6 +40,10 @@ class AddPhonebook extends Component {
             this.setState({ name: '', phone: '' })
         }
         e.preventDefault()
+    }
+
+    componentWillMount(){
+        this.setState({added: false})
     }
 
     render() {
@@ -66,7 +71,7 @@ class AddPhonebook extends Component {
                                         placeholder="phone" name="phone" value={this.state.phone} onChange={this.handlePhoneChange.bind(this)} />
                                 </div>
                                 <div className="form-check mb-2 mr-sm-2">
-                                    <button type="submit" className="btn btn-success mb-2"><i className="fa fa-check-circle"></i> Submit</button>
+                                    <button type="submit" className="btn btn-success mb-2" ><i className="fa fa-check-circle"></i> Submit</button>
                                     <button type="button" className="btn btn-danger mb-2 ml-1 text-white" onClick={this.handleButtonCancle}><i className="fa fa-ban"></i> Cancle</button>
                                 </div>
                             </form>
