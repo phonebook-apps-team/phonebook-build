@@ -6,7 +6,6 @@ import { deleteStore } from '../action';
 // import ListPhonebook from '../components/ListPhonebook';
 
 class ItemList extends Component {
-<<<<<<< HEAD
     constructor(props) {
         super(props)
         this.state = {
@@ -28,10 +27,6 @@ class ItemList extends Component {
         
     };
        
-=======
-    
-    
->>>>>>> a58b3629b4c5637cd89e1b0de32dc89bb636d2e0
     render() {
         return (
             <tr>
@@ -46,7 +41,6 @@ class ItemList extends Component {
         )
     }
 }
-
 
 const mapDispatchToProps = (dispatch) => ({
     deleteStore: (idUser, name, phone) => {
