@@ -16,9 +16,8 @@ class ListPhonebook extends Component {
     
     
     render() {
-        console.log(this.props.phonebooks);
-        
-        const dataItem = this.props.phonebooks.map((item, index) => {
+
+        let dataItem = this.props.store.map((item, index) => {
             return (
                 <ItemList
                     key={index}
@@ -28,6 +27,9 @@ class ListPhonebook extends Component {
                 />
             )
         })
+        console.log('data Item > ', dataItem);
+        
+
         return (
             <table className="table table-striped mt-4">
                 <thead>
@@ -39,8 +41,7 @@ class ListPhonebook extends Component {
                     </tr>
                 </thead>  
                 <tbody>
-
-                {dataItem}                
+                    {dataItem}
                 </tbody>
             </table>
         )
@@ -48,7 +49,7 @@ class ListPhonebook extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    phonebooks: state.store
+    store: state.store
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -57,6 +58,7 @@ const mapDispatchToProps = (dispatch) => ({
 // const mapDeleteToProps = (dispatch) => ({
 //     deleteStore: () => dispatch(deleteStore())
 // })
+
 
 export default connect(
     mapStateToProps,

@@ -4,11 +4,6 @@ var PhoneBook = require('../models/users')
 
 
 router.get('/', function (req, res, next) {
-  let response = {
-    idUser: '',
-    name: '',
-    phone: ''
-  }
   PhoneBook.find().then(data => {
     res.status(200).json(data)
   }).catch(() => {
@@ -18,6 +13,7 @@ router.get('/', function (req, res, next) {
   })
 
 });
+
 
 router.post('/', (req, res, next) => {
 
@@ -52,7 +48,7 @@ router.put('/:id', (req, res) => {
 
   PhoneBook.findOneAndUpdate(
     { idUser: req.params.id },
-    { name: req.body.name, numberPhone: req.body.numberPhone }, { new: true }
+    { name: req.body.name, phone: req.body.phone }, { new: true }
   ).then(data => {
     res.status(201).json({
       success: true,

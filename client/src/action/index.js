@@ -58,6 +58,8 @@ export const loadItemDataSuccess = (phonebooks) => ({
       dispatch(postDataRedux(idUser, name, phone))
       return request.post('phonebooks', {idUser, name, phone})
       .then(result => {
+        console.log('this result data post > ', result.data);
+        
         dispatch(postDataSuccess(result.data))
       })
       .catch(err => {
@@ -113,3 +115,34 @@ export const loadItemDataSuccess = (phonebooks) => ({
     }
   }
   // End resend data
+
+  //start edit data
+  export const putPhonebookSuccess = store => ({
+    type: 'PUT_PHONEBOOKS_SUCCESS',
+    store
+  })
+  export const putPhonebookFailure = idUser => ({
+    type: 'PUT_PHONEBOOKS_FAILURE',
+    idUser
+  })
+  const putPhonebookRedux = (idUser, name, phone) => ({
+    type: 'PUT_PHONEBOOKS',
+    idUser, 
+    name,
+    phone
+  });
+  export const putPhonebook = (idUser, name, phone) => {
+    return dispatch => {
+      dispatch(putPhonebookRedux(idUser, name, phone));
+      return request
+      .put(`phonebooks/${idUser}`, {name, phone})
+      .then(response => {
+        dispatch(putPhonebookSuccess(response.data));
+      })
+      .catch(err => {
+        console.error(err);
+        dispatch(putPhonebookFailure());
+      })
+    }
+  }
+  // end edit data
