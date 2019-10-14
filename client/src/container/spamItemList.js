@@ -1,73 +1,79 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux'
-// import { LoadItem,deleteStore } from '../action/index'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { deleteStore } from '../action';
+import axios from 'axios';
 
-// class ItemList extends Component {
-//     state = {
-//         name: '',
-//         phone: '',
-//         content: []
-//     }
-    
+// import ListPhonebook from '../components/ListPhonebook';
 
-//     componentDidMount() {
-//         this.props.LoadItem();
+class ItemList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            idUser: '',
+            name: '',
+            phone: '',
+            added: false,
+            content: []
+        }
 
-//         this.props.deleteStore();
-//     }
+        this.handleButtonDelete = this.handleButtonDelete.bind(this)
+    }
+
+    handleButtonDelete = (e) => {
+
+        // e.preventDefault();
+        const id = this.state.idUser;
+        const url = `http://localhost:3001/api/phonebooks/'${id}'`;
 
 
-//     handleClick = idRemove => {
-//         const requestOptions = {
-//             method: 'delete'
-//         };
-//         fetch('http://localhost:3001/api/phonebooks' + idRemove,
-//             requestOptions.then((response) => {
-//                 console.log(response);
-//                 return response.json();
+        axios.delete(url)
+            .then(response => {
+                this.setState(previousState => {
+                    return {
+                        content: this.state.content.filter(item => item._id != previousState._id)
+                    }
+                })
+                console.log(response.data);
 
-//             }).then((data) => {
-//                 console.log(data);
-//                 this.state.LoadItem();
+            })
+            .catch((err) => {
+                console.log(err);
 
-//             }).catch(err => {
-//                 console.log(err);
-                
-//             })
-//         )
-//     }
-//     render() {
-        
-//         {this.state.content.map((item,index) => {
-//             return (
-//                 <tr>
-//                     <th scope="row" key={index}>{this.props.idUser}</th>
-//                     <td>{this.props.name}</td>
-//                     <td>{this.props.phone}</td>
-//                     <td>
-//                         <button type="submit" class="btn btn-success mb-2">Edit</button>
-//                         <button type="submit" class="btn btn-danger mb-2 text-white" onClick={this.handleClick(item.idRemove)} >Delete</button>
-//                     </td>
-//                 </tr>
-//             )
-//         })}
-//     }
-// }
+            })
+    }
 
-// const mapStateToProps = (state) => ({
-//     getting: state.getting
-// })
+    render() {
+        return (
 
-// const mapDispatchToProps = (dispatch) => ({
-//     LoadItem: () => dispatch(LoadItem())
-// })
+            <tbody>
+                {this.state.content.map((item, index) => {
 
-// const mapDeleteToProps = (dispatch) => ({
-//     deleteStore: () => dispatch(deleteStore())
-// })
+                    return (
+                        <tr key={index}>
+                            <th scope="row" >{this.props.idUser}</th>
+                            <td>{this.props.name}</td>
+                            <td>{this.props.phone}</td>
+                            <td>
+                                <button type="submit" className="btn btn-success mb-2">Edit</button>
+                                <button type="submit" className="btn btn-danger mb-2 ml-1 text-white" >Delete</button>
+                            </td>
+                        </tr>
+                    )
+                })}
+            </tbody>
+        )
 
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps,
-//     mapDeleteToProps
-// )(ItemList)
+    }
+}
+
+
+
+const mapDeleteToProps = (dispatch, ownProps) => ({
+    onDelete: () => dispatch(deleteStore(ownProps.id)),
+})
+
+
+export default connect(
+    null,
+    mapDeleteToProps
+)(ItemList)

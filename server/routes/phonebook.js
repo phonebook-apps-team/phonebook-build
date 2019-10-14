@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
   console.log('req Body > ', req.body);
   
   PhoneBook.create({
-    idUser: Math.random(),
+    idUser: req.body.idUser,
     name: req.body.name,
     phone: req.body.phone
   })
@@ -69,6 +69,8 @@ router.put('/:id', (req, res) => {
 
 
 router.delete('/:id', (req, res) => {
+  console.log(req.params.id);
+  
   PhoneBook.findOneAndRemove({
     idUser: req.params.id
   })

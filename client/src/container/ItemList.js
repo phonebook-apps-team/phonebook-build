@@ -1,36 +1,32 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { LoadItem } from '../action/index'
+import { connect } from 'react-redux';
+import { deleteStore } from '../action';
+// import axios from 'axios';
+
+// import ListPhonebook from '../components/ListPhonebook';
 
 class ItemList extends Component {
-    state = {
-        fullname: '',
-        message: '',
-        content: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            idUser: props.idUser,
+            name: props.name,
+            phone: props.phone,
+            content: []
+        }
+
+        this.handleButtonDelete = this.handleButtonDelete.bind(this)
     }
 
-    componentDidMount() {
-        this.props.LoadItem();
-
-        this.props.DeleteItem();
-    }
-
-
-    handleClick = idUser => {
-        const requestOptions = {
-            method: 'delete'
-        };
-        fetch('http://localhost:3001/api/phonebooks' + idUser,
-            requestOptions.then((response) => {
-                console.log(response);
-                return response.json();
-
-            }).then((userRemove) => {
-                console.log(userRemove);
-
-            })
-        )
-    }
+    handleButtonDelete = (idUser) => {
+        console.log('this idUser>',idUser);
+        
+        // e.preventDefault();
+        // const {idUser} =this.state;
+        this.props.deleteStore(idUser);
+        
+    };
+       
     render() {
         return (
             <tr>
@@ -38,25 +34,23 @@ class ItemList extends Component {
                 <td>{this.props.name}</td>
                 <td>{this.props.phone}</td>
                 <td>
-                    <button type="submit" class="btn btn-success mb-2">Edit</button>
-                    <button type="submit" class="btn btn-danger mb-2 text-white">Delete</button>
+                    <button type="submit" className="btn btn-success mb-2">Edit</button>
+                    <button type="submit" className="btn btn-danger mb-2 ml-1 text-white" onClick={() => this.handleButtonDelete(this.props.idUser)} >Delete</button>
                 </td>
             </tr>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
-    getting: state.getting
-})
 
 const mapDispatchToProps = (dispatch) => ({
-    LoadItem: () => dispatch(LoadItem())
+    deleteStore: (idUser, name, phone) => {
+        dispatch(deleteStore(idUser, name, phone))
+    }
 })
-
 
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(ItemList)

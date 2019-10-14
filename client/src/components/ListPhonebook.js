@@ -1,38 +1,31 @@
 import React, { Component } from 'react';
-// import ItemList from '../container/ItemList';
+import ItemList from '../container/ItemList';
 import { connect } from 'react-redux';
 import { LoadItem } from '../action';
-// import { deleteStore } from '../action';
 
 
 class ListPhonebook extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            idUser: '',
-            name: '',
-            phone: ''
-        }
-    }
 
     componentDidMount() {
         this.props.LoadItem();
         // this.props.deleteStore();
     }
 
-
+    
+    
     render() {
-
-        // let dataItem = this.props.getting.map((item, index) => {
-        //     return (
-        //         <ItemList
-        //             key={index}
-        //             idUser={item.idUser}
-        //             name={item.name}
-        //             phone={item.phone}
-        //         />
-        //     )
-        // })
+        console.log(this.props.phonebooks);
+        
+        const dataItem = this.props.phonebooks.map((item, index) => {
+            return (
+                <ItemList
+                    key={index}
+                    idUser={item.idUser}
+                    name={item.name}
+                    phone={item.phone}
+                />
+            )
+        })
         return (
             <table className="table table-striped mt-4">
                 <thead>
@@ -42,9 +35,10 @@ class ListPhonebook extends Component {
                         <th scope="col">Phone</th>
                         <th scope="col">Asaosinction</th>
                     </tr>
-                </thead>
+                </thead>  
                 <tbody>
-                    {/* {dataItem} */}
+
+                {dataItem}                
                 </tbody>
             </table>
         )
@@ -52,7 +46,7 @@ class ListPhonebook extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    getting: state.getting
+    phonebooks: state.store
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -64,7 +58,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
     // mapDeleteToProps
 )(ListPhonebook)
 

@@ -1,23 +1,19 @@
-import axios from 'axios'
+import axios from 'axios';
 
+const API_URL = 'http://localhost:3001/api/'
 
-// const API_URL = 'http://localhost:3001/api/'
-
-
-// const request =  axios.create({
-//     baseUrl: API_URL,
-//     timeout: 1000
-// });
+const request = axios.create({
+  baseURL: API_URL,
+  timeout: 1000
+});
 
 
 // start load ItemList from database
 
-export const loadItemDataSuccess = (getting) => ({
-    type: 'LOAD_ITEM_SUCCESS',
-    getting
-
-  })
-  
+export const loadItemDataSuccess = (phonebooks) => ({
+  type: 'LOAD_ITEM_SUCCESS',
+  phonebooks
+})
   
   export const loadItemDataFailure = () => ({
     type: 'LOAD_ITEM_FAILURE'
@@ -28,10 +24,10 @@ export const loadItemDataSuccess = (getting) => ({
   
   export const LoadItem = () => {
     return dispatch => {
-      return axios.get('http://localhost:3001/api/phonebooks')
-      .then(function (data) {
-        console.log('result dari >', data.data)
-        dispatch(loadItemDataSuccess(data))
+      return request.get('phonebooks')
+      .then(response => {
+        console.log('result dari >', response.data)
+        dispatch(loadItemDataSuccess(response.data))
       })
       .catch(function (error) {
         console.error(error);
@@ -41,27 +37,29 @@ export const loadItemDataSuccess = (getting) => ({
   }
   
   // start post data
- const postDataSuccess = (store) => ({
+ const postDataSuccess = (phonebooks) => ({
     type: 'POST_STORE_SUCCESS',
-    store
+    phonebooks
   })
 
-  export const postDataFailure = (id) => ({
-    type: 'POST_STORE_SUCCESS',
-    id
+  export const postDataFailure = (idUser) => ({
+    type: 'POST_STORE_FAILURE',
+    idUser
   })
 
-  export const postDataRedux = (id, name, phone) => ({
+  export const postDataRedux = (idUser, name, phone) => ({
     type:'POST_STORE',
-    id, name, phone
+    idUser, name, phone
   })
 
   export const postStore = (name, phone) => {
-    let id = Date.now();
+    let idUser = Date.now()
+    
     return dispatch => {
-      dispatch(postDataRedux(id, name, phone))
-      return axios.post('http://localhost:3001/api/phonebooks', {id, name, phone})
+      dispatch(postDataRedux(idUser, name, phone))
+      return request.post('phonebooks', {idUser, name, phone})
       .then(result => {
+        console.log('hasil dari', result)
         dispatch(postDataSuccess(result.data))
       })
       .catch(err => {
@@ -72,9 +70,9 @@ export const loadItemDataSuccess = (getting) => ({
   // End post data
 
   // Start Delete data
-  const deleteStoreRedux = (id) => ({
+  const deleteStoreRedux = (idUser) => ({
     type: 'DELETE_STORE',
-    id
+    idUser
   })
 
   export const deleteStoreSuccess = (store) => ({
@@ -86,16 +84,16 @@ export const loadItemDataSuccess = (getting) => ({
     type: 'DELETE_STORE_FAILURE'
   })
 
-  export const deleteStore = (id) => {
+  export const deleteStore = (idUser) => {
     return dispatch => {
-      dispatch(deleteStoreRedux(id))
-      return axios.delete(`http://localhost:3001/api/phonebooks/${id}`)
+      dispatch(deleteStoreRedux(idUser))
+      return request.delete(`phonebooks/${idUser}`)
       .then(result => {
         dispatch(deleteStoreSuccess(result.data))
       })
       .catch(err => {
         console.log(err);
-        dispatch(deleteStoreFailure(id))
+        dispatch(deleteStoreFailure(idUser))
       });
     }
   }
