@@ -67,79 +67,46 @@ class ListPhonebook extends Component {
         )
     }
 
-    handleFilterNameChange(e) {
-        this.setState({ Fname: e.target.value })
-    }
-
-    handleFilterPhoneChange(e) {
-        this.setState({ Fphone: e.target.value })
-    }
-
-    filterData = () => {
-        const { Fname, Fphone } = this.state;
-        return (
-            <div className="card mt-3">
-                <div className="card-header">
-                    <strong>Search Form</strong>
-                </div>
-                <div className="card-body">
-                    <form className="form-inline">
-                        <div className="form-check mb-2 mr-sm-2">
-                            <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
-                                <h6>name</h6>
-                            </label>
-                            <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                                placeholder="name" name="name" value={Fname} onChange={this.handleFilterNameChange} />
-                        </div>
-                        <div className="form-check mb-2 mr-sm-2">
-                            <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
-                                <h6>phone</h6>
-                            </label>
-                            <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                                placeholder="phone" name="phone" value={Fphone} onChange={this.handleFilterPhoneChange} />
-                        </div>
-                    </form>
-                </div>
-            </div>
-        )
-    }
+   
 
 
     render() {
-        let { store } = this.props;
+        let { phonebooks } = this.props;
+        console.log('data phonebooks > ', phonebooks);
+        
         let {nameFilter, phoneFilter} = this.state;
 
         if (nameFilter && phoneFilter) {
             const filterItem = (name, phone) => {
-                return store.filter(data => {
+                return phonebooks.filter(data => {
                     return (
                         data.name.toLowerCase().indexOf(name.toLowerCase()) > -1 &&
                         data.phone.indexOf(phone) > -1
                     );
                 });
             };
-            store = filterItem(nameFilter, phoneFilter)
+            phonebooks = filterItem(nameFilter, phoneFilter)
         }
         if (nameFilter) {
             const filterItem = name => {
-                return store.filter(data => {
+                return phonebooks.filter(data => {
                     return data.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
                 });
             };
-            store = filterItem(nameFilter, phoneFilter);
+            phonebooks = filterItem(nameFilter, phoneFilter);
         };
         if (phoneFilter) {
             const filterItem = phone => {
-                return store.filter(data => {
+                return phonebooks.filter(data => {
                     return data.phone.indexOf(phone) > -1;
                 })
             }
-            store = filterItem(phoneFilter);
+            phonebooks = filterItem(phoneFilter);
         };
 
 
         // data migrasi ke state atas =====================
-        // let dataItem = this.props.store.map((item, index) => {
+        // let dataItem = this.props.phonebooks.map((item, index) => {
         //     return (
         //         <ItemList
         //             key={index}
@@ -153,7 +120,7 @@ class ListPhonebook extends Component {
         // =====================
 
         // tes =====================
-        let dataItem = store.map((item, index) => {
+        let dataItem = phonebooks.map((item, index) => {
             return (
                 <ItemList
                     key={index}
@@ -163,6 +130,7 @@ class ListPhonebook extends Component {
                 />
             )
         })
+
         console.log('data Item > ', dataItem);
         // =====================
 
@@ -180,12 +148,6 @@ class ListPhonebook extends Component {
                 </thead>  
                 <tbody>
                     {dataItem}
-
-                    {/* {store.map(( item,index ) => {
-                        return <ItemList 
-                        store={item} key={index}
-                        />
-                    })} */}
                 </tbody>
             </table>
             </div>

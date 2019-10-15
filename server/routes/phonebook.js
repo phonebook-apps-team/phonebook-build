@@ -41,7 +41,7 @@ router.put('/:id', (req, res) => {
 
   PhoneBook.findOneAndUpdate(
     { idUser: req.params.id },
-    { name: req.body.name, numberPhone: req.body.numberPhone }, { new: true }
+    { name: req.body.name, phone: req.body.phone }, { new: true }
   ).then(data => {
     res.status(201).json({
       success: true,
