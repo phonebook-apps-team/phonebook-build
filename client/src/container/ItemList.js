@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { putPhonebook, deleteStore } from '../action';
 
 class ItemList extends Component {
@@ -18,8 +18,8 @@ class ItemList extends Component {
     handleNameChange = e => {
         const name = e.target.name;
         this.setState({ [name]: e.target.value });
-      };
-   
+    };
+
 
     handleEditOn(e) {
         e.preventDefault();
@@ -34,13 +34,13 @@ class ItemList extends Component {
 
     handleEditSave = (e) => {
         e.preventDefault();
-        const {idUser, name, phone} = this.state;
+        const { idUser, name, phone } = this.state;
         if (name && phone) {
             this.props.putPhonebook(idUser, name, phone)
             this.setState({ editButton: false });
         }
-        console.log('data handleEditSave > ',idUser, name, phone);
-        
+        console.log('data handleEditSave > ', idUser, name, phone);
+
     }
 
     handleDelete = (e) => {
@@ -50,7 +50,7 @@ class ItemList extends Component {
 
     }
 
-
+    
 
 
     render() {
@@ -59,49 +59,50 @@ class ItemList extends Component {
             <tr>
                 <th scope="row">{idUser}</th>
                 {!this.state.editButton && (
-                <>
-                <td>{name}</td>
-                <td>{phone}</td>
-                <td>
-                    <button type="submit" class="btn btn-success mb-2" onClick={ this.handleEditOn}>Edit</button>
+                    <>
+                        <td>{name}</td>
+                        <td>{phone}</td>
+                        <td>
+                            <button type="submit" class="btn btn-success mb-2" onClick={this.handleEditOn}>Edit</button>
 
-                    <button type="submit" class="btn btn-danger mb-2 text-white" onClick={ this.handleDelete}>Delete</button>
-                </td>
-                </>
+                            <button type="submit" class="btn btn-danger mb-2 text-white" onClick={this.handleDelete}>Delete</button>
+                        </td>
+                    </>
                 )}
 
                 {this.state.editButton && (
-                <>
-                    <td>
-                        <div class="form-check mb-2 mr-sm-2">
-                            <input type="text" 
-                            className="form-control mb-2 mr-sm-2" 
-                            name="name"
-                            value={this.state.name}
-                            placeholder="name" 
-                            onChange={this.handleNameChange.bind(this)}/>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-check mb-2 mr-sm-2">
-                            <input type="text" 
-                            className="form-control mb-2 mr-sm-2" 
-                            placeholder="phone"
-                            name="phone"
-                            value={this.state.phone} 
-                            onChange={this.handleNameChange.bind(this)} />
-                        </div>
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-primary mb-2" onClick={ this.handleEditSave}>save</button>
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-danger mb-2" onClick={ this.handleEditOff}>cancle</button>
-                    </td>
+                    <>
+                        <td>
+                            <div class="form-check mb-2 mr-sm-2">
+                                <input type="text"
+                                    className="form-control mb-2 mr-sm-2"
+                                    name="name"
+                                    value={this.state.name}
+                                    placeholder="name"
+                                    onChange={this.handleNameChange.bind(this)} />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check mb-2 mr-sm-2">
+                                <input type="text"
+                                    className="form-control mb-2 mr-sm-2"
+                                    placeholder="phone"
+                                    name="phone"
+                                    value={this.state.phone}
+                                    onChange={this.handleNameChange.bind(this)} />
+                            </div>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary mb-2" onClick={this.handleEditSave}>save</button>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-danger mb-2" onClick={this.handleEditOff}>cancle</button>
+                        </td>
 
-                </>
+                    </>
                 )}
             </tr>
+
 
 
 
@@ -120,6 +121,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(
-null,
-mapDispatchToProps,
+    null,
+    mapDispatchToProps,
 )(ItemList);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Title from './Title';
 import AddPhonebook from '../container/AddPhonebook';
-import SearchPhonebook from './SearchPhonebook';
+// import SearchPhonebook from './SearchPhonebook';
 import ListPhonebook from './ListPhonebook';
 
 class Phonebook extends React.Component {
@@ -12,7 +12,7 @@ class Phonebook extends React.Component {
                 <Title />
                 <div className="container">
                     <AddPhonebook />
-                    <SearchPhonebook />
+                    {/* <SearchPhonebook /> */}
                     <ListPhonebook />
                 </div>
             </div>
