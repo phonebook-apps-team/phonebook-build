@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { postStore } from '../action/index'
-
+import Swal from 'sweetalert2'
 
 class AddPhonebook extends Component {
     constructor(props) {
@@ -37,15 +37,30 @@ class AddPhonebook extends Component {
     handleSubmit(e) {
         if (this.state.name && this.state.phone) {
             this.props.postStore(this.state.name, this.state.phone)
-            this.setState({ name: '', phone: '' })
+            this.setState({ name: '', phone: '' , added:false})
         }
+    }
+    swalsubmit = (e) => {
         e.preventDefault()
+        Swal.fire({
+            type: 'success',
+            title: 'Amazing',
+            text: 'Masuk Pak Eko!',
+          }).then((result) => {
+              this.handleSubmit()
+          })
     }
 
-    componentWillMount(){
-        this.setState({added: false})
+    swalcancle =(e) => {
+        Swal.fire({
+            type: 'warning',
+            title: 'Oops...',
+            text: 'siap laksanakan dicancle!',
+          }).then((result) => {
+              this.handleButtonCancle()
+          })
+          
     }
-
     render() {
         if (this.state.added) {
             return (
@@ -55,7 +70,7 @@ class AddPhonebook extends Component {
                             <strong>Add Form</strong>
                         </div>
                         <div className="card-body">
-                            <form className="form-inline" onSubmit={this.handleSubmit}>
+                            <form className="form-inline" onSubmit={this.swalsubmit}>
                                 <div className="form-check mb-2 mr-sm-2">
                                     <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
                                         <h6>name</h6>
@@ -72,7 +87,7 @@ class AddPhonebook extends Component {
                                 </div>
                                 <div className="form-check mb-2 mr-sm-2">
                                     <button type="submit" className="btn btn-success mb-2" ><i className="fa fa-check-circle"></i> Submit</button>
-                                    <button type="button" className="btn btn-danger mb-2 ml-1 text-white" onClick={this.handleButtonCancle}><i className="fa fa-ban"></i> Cancle</button>
+                                    <button type="button" className="btn btn-danger mb-2 ml-1 text-white" onClick={this.swalcancle}><i className="fa fa-ban"></i> Cancle</button>
                                 </div>
                             </form>
                         </div>

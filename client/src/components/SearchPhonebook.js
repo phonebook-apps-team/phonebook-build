@@ -1,24 +1,23 @@
-import React from 'react';
-import ItemList from '../container/ItemList';
-import { connect } from 'react-redux';
-import { LoadItem } from '../action';
+import React, { Component } from 'react';
 
-class SearchPhonebook extends React.Component {
+class SearchPhonebook extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            phone: ''
+            Fname: '',
+            Fphone: ''
         }
     }
 
     handleFilterNameChange(e) {
-        this.setState({ name: e.target.value })
+        this.setState({ Fname: e.target.value })
     }
 
     handleFilterPhoneChange(e) {
-        this.setState({ phone: e.target.value })
+        this.setState({ Fphone: e.target.value })
     }
+
+    
 
     render() {
         return (
@@ -33,21 +32,22 @@ class SearchPhonebook extends React.Component {
                                 <h6>name</h6>
                             </label>
                             <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                                placeholder="name" name="name" value={this.state.name} onChange={this.handleFilterNameChange.bind(this)} />
+                                placeholder="name" name="name" value={this.state.Fname} onChange={this.handleFilterNameChange.bind(this)} />
                         </div>
-
                         <div className="form-check mb-2 mr-sm-2">
                             <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
                                 <h6>phone</h6>
                             </label>
                             <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                                placeholder="phone" name="phone" value={this.state.phone} onChange={this.handleFilterPhoneChange.bind(this)} />
+                                placeholder="phone" name="phone" value={this.state.Fphone} onChange={this.handleFilterPhoneChange.bind(this)} />
                         </div>
                     </form>
                 </div>
             </div>
         )
     }
+
+
 }
 
 export default SearchPhonebook;
