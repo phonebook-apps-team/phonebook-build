@@ -64,9 +64,9 @@ class ItemList extends Component {
                         <td>{name}</td>
                         <td>{phone}</td>
                         <td>
-                            <button type="submit" class="btn btn-success mb-2" onClick={this.handleEditOn}>Edit</button>
+                            <button type="submit" className="btn btn-success mb-2" onClick={this.handleEditOn}>Edit</button>
 
-                            <button type="submit" class="btn btn-danger mb-2 text-white" onClick={this.handleDelete}>Delete</button>
+                            <button type="submit" className="btn btn-danger mb-2 text-white" onClick={this.handleDelete}>Delete</button>
                         </td>
                     </>
                 )}
