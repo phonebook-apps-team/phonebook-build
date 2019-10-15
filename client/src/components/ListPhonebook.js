@@ -5,99 +5,124 @@ import { LoadItem } from '../action';
 
 
 class ListPhonebook extends Component {
-    constructor(props) {
-        super(props)
+    constructor(){
+        super();
         this.state = {
-            Fname: '',
-            Fphone: ''
+            idUser: '',
+            name: '',
+            phone: '',
+            nameFilter: '',
+            phoneFilter: ''
         }
-        this.handleFilterNameChange = this.handleFilterNameChange.bind(this)
-        this.handleFilterPhoneChange = this.handleFilterPhoneChange.bind(this)
     }
 
     componentDidMount() {
         this.props.LoadItem();
     }
 
-    handleFilterNameChange(e) {
-        this.setState({ Fname: e.target.value })
+    handelChange = e => {
+        const name = e.target.name;
+        this.setState({ [name]: e.target.value })
     }
-
-    handleFilterPhoneChange(e) {
-        this.setState({ Fphone: e.target.value })
-    }
-
-    filterData = () => {
-        const { Fname, Fphone } = this.state;
+    
+    filter = () => {
+        const {nameFilter, phoneFilter} = this.state;
         return (
-            <div className="card mt-3">
-                <div className="card-header">
-                    <strong>Search Form</strong>
-                </div>
-                <div className="card-body">
-                    <form className="form-inline">
-                        <div className="form-check mb-2 mr-sm-2">
-                            <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
-                                <h6>name</h6>
-                            </label>
-                            <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                                placeholder="name" name="name" value={Fname} onChange={this.handleFilterNameChange} />
-                        </div>
-                        <div className="form-check mb-2 mr-sm-2">
-                            <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
-                                <h6>phone</h6>
-                            </label>
-                            <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                                placeholder="phone" name="phone" value={Fphone} onChange={this.handleFilterPhoneChange} />
-                        </div>
-                    </form>
+            <div>
+                <div className="card mt-3">
+                    <div className="card-header">
+                        <strong>Search Form</strong>
+                    </div>
+                    <div className="card-body">
+                        <form className="form-inline">
+                            <div className="form-check mb-2 mr-sm-2">
+                                <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
+                                    <h6>name</h6>
+                                </label>
+                                <input type="text" 
+                                className="form-control mb-2 mr-sm-2" 
+                                id="inlineFormInputName2"
+                                placeholder="name" 
+                                name="nameFilter" 
+                                value={nameFilter}
+                                onChange={this.handelChange}/>
+                            </div>
+
+                            <div className="form-check mb-2 mr-sm-2">
+                                <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
+                                    <h6>phone</h6>
+                                </label>
+                                <input type="text" 
+                                className="form-control mb-2 mr-sm-2" 
+                                id="inlineFormInputName2"
+                                placeholder="phone" 
+                                name="phoneFilter" 
+                                value={phoneFilter}
+                                onChange={this.handelChange}/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         )
     }
 
+   
+
 
     render() {
         let { phonebooks } = this.props;
-        console.log('ini hasil phonebook', phonebooks)
-        let { Fname, Fphone } = this.state;
-        if (Fname && Fphone) {
-            const filters = (name, phone) => {
-                return phonebooks.filter(e => {
+        console.log('data phonebooks > ', phonebooks);
+        
+        let {nameFilter, phoneFilter} = this.state;
+
+        if (nameFilter && phoneFilter) {
+            const filterItem = (name, phone) => {
+                return phonebooks.filter(data => {
                     return (
-                        e.name.toLowerCase().indexOf(name.toLowerCase()) > -1 &&
-                        e.phone.indexOf(phone) > -1
-                    )
+                        data.name.toLowerCase().indexOf(name.toLowerCase()) > -1 &&
+                        data.phone.indexOf(phone) > -1
+                    );
+                });
+            };
+            phonebooks = filterItem(nameFilter, phoneFilter)
+        }
+        if (nameFilter) {
+            const filterItem = name => {
+                return phonebooks.filter(data => {
+                    return data.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
+                });
+            };
+            phonebooks = filterItem(nameFilter, phoneFilter);
+        };
+        if (phoneFilter) {
+            const filterItem = phone => {
+                return phonebooks.filter(data => {
+                    console.log('filter phone > ', data);
+                    return data.phone.indexOf(phone) > -1;
+                    
                 })
             }
-            phonebooks = filters(Fname, Fphone);
-        }
+            phonebooks = filterItem(phoneFilter);
+        };
 
-        if (Fname) {
-            const filters = name => {
-                console.log('ini', name)
-                return phonebooks.filter(e => {
-                    return e.name.toLowerCase().indexOf(name.toLowerCase()) > -1
-                })
-            }
-            phonebooks = filters(Fname)
-        }
 
-        if (Fphone) {
-            const filters = phone => {
+        // data migrasi ke state atas =====================
+        // let dataItem = this.props.phonebooks.map((item, index) => {
+        //     return (
+        //         <ItemList
+        //             key={index}
+        //             idUser={item.idUser}
+        //             name={item.name}
+        //             phone={item.phone}
+        //         />
+        //     )
+        // })
+        // console.log('data Item > ', dataItem);
+        // =====================
 
-                console.log('ini', phone)
-                return phonebooks.filter(e => {
-                    return e.phone.indexOf(phone) > -1
-                })
-            }
-            phonebooks = filters(Fphone)
-        }
-
-        console.log('phonebooks> ', phonebooks);
-        // this.props.phonebooks = phonebooks;
-
-        const dataItem = phonebooks.map((item, index) => {
+        // tes =====================
+        let dataItem = phonebooks.map((item, index) => {
             return (
                 <ItemList
                     key={index}
@@ -107,23 +132,26 @@ class ListPhonebook extends Component {
                 />
             )
         })
+
+        console.log('data Item > ', dataItem);
+        // =====================
+
         return (
             <div>
-                {this.filterData()}
-
-                <table className="table table-striped mt-4">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dataItem}
-                    </tbody>
-                </table>
+            {this.filter()}
+            <table className="table table-striped mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>  
+                <tbody>
+                    {dataItem}
+                </tbody>
+            </table>
             </div>
         )
     }
@@ -136,6 +164,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     LoadItem: () => dispatch(LoadItem())
 })
+
+
 
 export default connect(
     mapStateToProps,

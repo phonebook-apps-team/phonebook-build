@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var phoneBookSchema = new Schema({
   idUser: String,
   name:  String,
-  phone: Number,
+  phone: String,
 
 })
 

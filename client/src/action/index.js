@@ -133,6 +133,8 @@ export const loadItemDataSuccess = (phonebooks) => ({
     phone
   });
   export const putPhonebook = (idUser, name, phone) => {
+  console.log('data edit index > ', idUser, name, phone);
+
     return dispatch => {
       dispatch(putPhonebookRedux(idUser, name, phone));
       return request
@@ -145,5 +147,6 @@ export const loadItemDataSuccess = (phonebooks) => ({
         dispatch(putPhonebookFailure());
       })
     }
+    
   }
   // end edit data

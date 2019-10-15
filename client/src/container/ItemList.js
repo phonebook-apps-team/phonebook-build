@@ -23,10 +23,7 @@ class ItemList extends Component {
         // this.setState({ [phone]: e.target.value });
     };
 
-    handlePhoneChange = e => {
-        const phone = e.target.phone;
-        this.setState({ [phone]: e.target.value });
-    };
+    
 
     handleEditOn(e) {
         e.preventDefault();
@@ -108,29 +105,30 @@ class ItemList extends Component {
                                     name="name"
                                     value={this.state.name}
                                     placeholder="name"
-                                onChange={this.handleNameChange.bind(this)} />
+                                    onChange={this.handleNameChange.bind(this)} />
                             </div>
                         </td>
                         <td>
-                        <div class="form-check mb-2 mr-sm-2">
+                            <div class="form-check mb-2 mr-sm-2">
                                 <input type="text"
                                     className="form-control mb-2 mr-sm-2"
+                                    placeholder="phone"
                                     name="phone"
                                     value={this.state.phone}
-                                    placeholder="phone"
                                     onChange={this.handleNameChange.bind(this)} />
                             </div>
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary mb-2" onClick={this.handleEditSave}>save</button>
-                        </td>
-                        <td>
                             <button type="submit" class="btn btn-danger mb-2" onClick={this.handleEditOff}>cancle</button>
                         </td>
+                        
+                        
 
                     </>
                 )}
             </tr>
+
 
 
 

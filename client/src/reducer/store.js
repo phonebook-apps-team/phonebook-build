@@ -20,7 +20,7 @@ const store = (state = [], action) => {
       ]
 
     case 'POST_STORE_SUCCESS':
-      console.log('hasil dari >>',action.phon);
+      console.log('hasil dari >>',action.phonebooks);
       
       return action.phonebooks.map((item) => {
         item.sent = true;
