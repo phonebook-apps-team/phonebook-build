@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { putPhonebook, deleteStore } from '../action';
 
 class ItemList extends Component {
+    
     constructor(props) {
         super(props)
         this.state = {

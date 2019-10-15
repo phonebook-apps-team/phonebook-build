@@ -67,8 +67,44 @@ class ListPhonebook extends Component {
         )
     }
 
-    
-    
+    handleFilterNameChange(e) {
+        this.setState({ Fname: e.target.value })
+    }
+
+    handleFilterPhoneChange(e) {
+        this.setState({ Fphone: e.target.value })
+    }
+
+    filterData = () => {
+        const { Fname, Fphone } = this.state;
+        return (
+            <div className="card mt-3">
+                <div className="card-header">
+                    <strong>Search Form</strong>
+                </div>
+                <div className="card-body">
+                    <form className="form-inline">
+                        <div className="form-check mb-2 mr-sm-2">
+                            <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
+                                <h6>name</h6>
+                            </label>
+                            <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
+                                placeholder="name" name="name" value={Fname} onChange={this.handleFilterNameChange} />
+                        </div>
+                        <div className="form-check mb-2 mr-sm-2">
+                            <label className="form-check-label mr-3" htmlFor="inlineFormCheck">
+                                <h6>phone</h6>
+                            </label>
+                            <input type="text" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
+                                placeholder="phone" name="phone" value={Fphone} onChange={this.handleFilterPhoneChange} />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )
+    }
+
+
     render() {
         let { store } = this.props;
         let {nameFilter, phoneFilter} = this.state;
@@ -158,7 +194,7 @@ class ListPhonebook extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    store: state.store
+    phonebooks: state.store
 })
 
 const mapDispatchToProps = (dispatch) => ({
