@@ -98,7 +98,9 @@ class ListPhonebook extends Component {
         if (phoneFilter) {
             const filterItem = phone => {
                 return phonebooks.filter(data => {
+                    console.log('filter phone > ', data);
                     return data.phone.indexOf(phone) > -1;
+                    
                 })
             }
             phonebooks = filterItem(phoneFilter);
